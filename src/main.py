@@ -12,12 +12,13 @@ import sqlite3
 
 class Book:
     
-    def __init__(self, author, title, genre, asin, id):
+    def __init__(self, author, title, genre, asin, book_id, num_pages):
         self.author = author
         self.title = title
         self.genre = genre
         self.asin = asin
-        self.id = id
+        self.book_id = book_id
+        self.num_pages = num_pages
     
 
 class Database:
@@ -29,8 +30,12 @@ class Database:
 
     
     def addTable(self):
-        self.cursor.execute("CREATE TABLE {table_name}(title, author, genre, asin)")
+        self.cursor.execute("CREATE TABLE Books(title, author, genre, asin)")
         
+    
+    def addBook(self):
+        self.cursor.execute()
+
 
     def __del__(self):
         self.connection.close()
@@ -40,3 +45,4 @@ class Database:
 if __name__ == '__main__':
     db1 = Database("lib.db")
     db1.addTable()
+    db1.addBook()
