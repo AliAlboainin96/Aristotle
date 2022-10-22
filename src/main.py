@@ -8,20 +8,35 @@ import sqlite3
 #           ('The Idiot', 'Fyodor Dostoevsky', 'non-fiction', 00000005)
 #            """)
 
-db_connection.commit()
+# db_connection.commit()
+
+class Book:
+    
+    def __init__(self, author, title, genre, asin, id):
+        self.author = author
+        self.title = title
+        self.genre = genre
+        self.asin = asin
+        self.id = id
+    
 
 class Database:
-    def __init__(self, connection, cursor, name, table_name):
-        self.connection = connection
-        self.cursor = cursor
-        self.name = name
-        self.table_name = table_name
-
-    def create(self):
-        self.connection = sqlite3.connect(self.name)
+    
+    def __init__(self, db_name):
+        self.connection = sqlite3.connect(self.db_name)
         self.cursor = self.connection.cursor()
+        self.db_name = db_name
 
+    
     def addTable(self):
         self.cursor.execute("CREATE TABLE {table_name}(title, author, genre, asin)")
-    
-    def addC
+        
+
+    def __del__(self):
+        self.connection.close()
+
+
+
+if __name__ == '__main__':
+    db1 = Database("lib.db")
+    db1.addTable()
